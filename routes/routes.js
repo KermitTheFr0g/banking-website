@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
 })
 
 router.get("/home", (req, res) => {
-    return res.send("welcome to the home page");
+    res.render("../public/views/home.ejs", { name: "brudda" });
 })
 
 router.get("/signup", (req, res) => {
