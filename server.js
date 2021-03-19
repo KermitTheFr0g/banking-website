@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
+
 const mysql = require("mysql");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
 const db = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
     password: "password",
-    database: "record_company"
+    database: "banking_website"
 });
 
 db.connect(function(error) {
@@ -16,8 +19,8 @@ db.connect(function(error) {
     console.log("we have connected!");
 })
 
-const bodyParser = require("body-parser");
-require("dotenv").config();
+
+
 
 app.get("/db", (req, res) => {
     db.query("SELECT * FROM albums", function(err, results){
