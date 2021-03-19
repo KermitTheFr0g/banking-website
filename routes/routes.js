@@ -10,7 +10,7 @@ router.get("/signup", (req, res) => {
 })
 
 router.get("/login", (req, res) => {
-    return res.send("welcome to the login page");
+    return res.render("../public/views/login.ejs");
 })
 
 router.get("/login/forgotten-password", (req, res) => {

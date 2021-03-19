@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>Kermit's Bank Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+
+<body>
+
+<h2 class="title">Login!</h2>
+
+<form action="" id="loginForm">
+
+    <div class="container">
+        <div>
+            <label for="username">Username</label>
+            <input type="text" placeholder="Username" name="username" id="username" required>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" name="password" id="password" required>
+        </div>
+
+        <div>
+            <button id="login" type="submit">Log In</button>
+        </div>
+
+        <div>
+            <label for="" style="font-size: 20px;">
+                <input type="checkbox" checked="checked"> Remember me
+            </label>
+        </div>
+
+        <div>
+            <span class="psw" style="font-size: 15px; margin-left: 10px;">Forgot <a href="/login/forgotten-password">password?</a></span>
+            <a style="font-size: 15px; margin-left: 65px;" href="/signup">Sign Up</a>
+        </div>
+
+        <div class="row" style="margin-top: 20px;">
+            <label id="errorLabel"></label>
+        </div>
+
+    </div>
+
+</form>
+
+
+
+<script src="../js/login.js"></script>
+</body>
+
+</html>
