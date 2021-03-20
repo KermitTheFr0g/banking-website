@@ -49,10 +49,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes for different pages
 const routes = require("./routes/routes");
-const login = require("./routes/login");
+const user = require("./routes/user");
 
 app.use("/", routes);
-app.use("/api/user", login);
+app.use("/api/user", user);
 
 // this allows the client to be able to access the
 app.use(express.static("./public"));

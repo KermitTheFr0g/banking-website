@@ -20,10 +20,8 @@ router.get("/login/forgotten-password", (req, res) => {
 })
 
 //if user is a customer this is the customer dashboard
-router.get("/home/:username", (req, res) => {
-    if(!req.session.username){
-        return res.send("")
-    }
+router.get("/dashboard/:username", (req, res) => {
+
 })
 
 
