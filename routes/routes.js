@@ -11,6 +11,7 @@ router.get("/signup", (req, res) => {
 
 router.get("/login", (req, res) => {
     req.session.username = "kermit";
+    console.log(req.session);
     return res.render("../public/views/login.ejs");
 })
 
@@ -20,18 +21,9 @@ router.get("/login/forgotten-password", (req, res) => {
 
 //if user is a customer this is the customer dashboard
 router.get("/home/:username", (req, res) => {
-
-    return console.log(req.params.username);
-
     if(!req.session.username){
-        return res.redirect("/login");
+        return res.send("")
     }
-
-    if(!req.params.username == req.session.username){
-        return res.send("not the correct email");
-    }
-
-    res.render("../public/view/home.ejs", { name: req.session.username });
 })
 
 

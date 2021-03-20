@@ -42,15 +42,15 @@ app.get("/db", (req, res) => {
     })
 })
 
-const routes = require("./routes/routes");
-const login = require("./routes/login");
-
 
 //middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes for different pages
+const routes = require("./routes/routes");
+const login = require("./routes/login");
+
 app.use("/", routes);
 app.use("/api/user", login);
 
