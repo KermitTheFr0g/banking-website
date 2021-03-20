@@ -1,9 +1,23 @@
 const express = require("express");
 const app = express();
 
+const session = require("express-session");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+
+
+//initialising sessions
+app.use(session({
+    secret: "my secret key!",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60,
+        secure: false
+    }
+}))
+
 
 const db = mysql.createConnection({
     host: "127.0.0.1",
