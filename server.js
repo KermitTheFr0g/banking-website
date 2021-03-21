@@ -6,6 +6,7 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
+const port = 3000 || process.env.port;
 
 //initialising sessions
 app.use(session({
@@ -57,7 +58,7 @@ app.use("/api/user", user);
 // this allows the client to be able to access the
 app.use(express.static("./public"));
 
-app.listen(process.env.port, () => {
+app.listen(port, () => {
     console.log("server up and running");
     console.log("on port " + process.env.port);
 })
