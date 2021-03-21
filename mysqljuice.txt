@@ -1,0 +1,84 @@
+CREATE DATABASE banking_website;
+USE banking_website;
+
+/*Creating the customer table*/
+CREATE TABLE customer (
+	customer_id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    dob DATE NOT NULL,
+    admin BIT NOT NULL DEFAULT 0,
+    PRIMARY KEY (customer_id)
+);
+/*Inserting values into the customer table*/
+INSERT INTO customer (username, email, password, first_name, last_name, dob)
+VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26");
+
+
+CREATE TABLE loan (
+	loan_id INT NOT NULL AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    apr FLOAT,
+    amount INT NOT NULL,
+    date_created DATE,
+    PRIMARY KEY (loan_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+INSERT INTO loan (customer_id, apr, amount, date_created)
+VALUES  ("1", 5.5, 15000, "2020-03-17");
+
+
+CREATE TABLE account (
+	account_id INT NOT NULL AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    type_id INT NOT NULL, 
+    balance FLOAT NOT NULL DEFAULT 0,
+    PRIMARY KEY (account_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    FOREIGN KEY (type_id) REFERENCES type(type_id)
+);
+INSERT INTO account (customer_id, type_id, balance)
+VALUES ("1", "1", 10);
+
+
+CREATE TABLE type (
+	type_id INT NOT NULL AUTO_INCREMENT, 
+    name VARCHAR(255) NOT NULL,
+    pricing FLOAT NOT NULL, 
+    interest_rate FLOAT NOT NULL,
+    min FLOAT NOT NULL,
+    max FLOAT NOT NULL, 
+    description VARCHAR(255),
+    PRIMARY KEY (type_id)
+);
+INSERT INTO type (name, pricing, interest_rate, min, max, description)
+VALUES ("Standard", 30, 1.5, 0, 10000, "Standard bank account");
+
+CREATE TABLE transaction (
+	transaction_id INT NOT NULL AUTO_INCREMENT,
+    account_id INT NOT NULL,
+    incoming BIT NOT NULL,
+	
+    
+    amount FLOAT NOT NULL,
+    dateOfTx DATE NOT NULL,
+    type_id INT NOT NULL,
+    PRIMARY KEY (transaction_id),
+    FOREIGN KEY (account_id) REFERENCES account(account_id),
+    FOREIGN KEY (type_id) REFERENCES type(type_id)
+);
+
+
+
+SELECT * FROM customer;
+SELECT * FROM loan;
+SELECT * FROM account;
+SELECT * FROM type;
+
+UPDATE account
+SET balance = balance + 10
+WHERE customer_id = 1;
+
