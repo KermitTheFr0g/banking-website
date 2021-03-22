@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
+const format = require("string-template");
+const validation = require("../validation/user");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
@@ -17,7 +19,6 @@ db.connect(function(error) {
     if(error){
         throw error;
     }
-    console.log("connected");
 })
 
 router.post("/login", (req, res) => {
@@ -46,21 +47,25 @@ router.post("/signup", (req, res) => {
         });
     });
 
+    var sql = format('INSERT INTO customer (username, email, password, first_name, last_name, dob)' +
+        'VALUES  ("{username}", "{email}", "{password}", "{firstName}", "{lastName}", "{dob}");', {
+            username: username,
+            email: email,
+            password: password,
+            firstName: first_name,
+            lastName: last_name,
+            dob: dob
+        }
+    )
 
-    var sql = 'INSERT INTO customer (username, email, password, first_name, last_name, dob)' +
-    'VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26")';
-
-
-    /*
     db.query(sql , function(err, results){
         if(err){
             throw err;
        }
-        console.log(results);
     })
-    */
+    
 
-    console.log(req.body);
+    console.log("New user has signed up:" + username);
     res.send("you have signed up");
 })
 
