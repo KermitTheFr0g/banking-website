@@ -10,18 +10,17 @@ router.get("/home", (req, res) => {
 })
 
 router.get("/signup", (req, res) => {
-    res.render("../public/views/signup.ejs");
+    res.render("../public/views/user/signup.ejs");
 })
 
 router.get("/login", (req, res) => {
     req.session.username = "kermit";
     console.log(req.session);
-    return res.render("../public/views/login.ejs");
+    return res.render("../public/views/user/login.ejs");
 })
 
 router.get("/login/forgotten-password", (req, res) => {
-    res.render("../public/views/forgotPassword.ejs");
+    res.render("../public/views/user/forgotPassword.ejs");
 })
-
 
 module.exports = router;
