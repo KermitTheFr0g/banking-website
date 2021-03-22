@@ -6,7 +6,8 @@ const mysql = require("mysql");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const port = 3000 || process.env.port;
+const port = 3000 
+//|| process.env.port;
 
 //middleware
 //initialising sessions
@@ -41,5 +42,6 @@ app.use(express.static("./public"));
 
 app.listen(port, () => {
     console.log("server up and running");
-    console.log("on port " + process.env.port);
+    console.log("on port " + port);
+    //process.env.port);
 })

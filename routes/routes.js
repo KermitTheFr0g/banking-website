@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Validation = require("../validation/user");
 
 router.get("", (req, res) => {
     res.redirect("/")

@@ -14,8 +14,8 @@ router.get("/dashboard/:username", (req, res) => {
         res.redirect("/admin/dashboard/" + req.session.username);
     }
 
-    
-    res.send("admin dashboard")
+
+    res.render("../public/views/admin/dashboard.ejs", { username: req.session.username })
 })
 
 

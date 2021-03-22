@@ -15,70 +15,76 @@ CREATE TABLE customer (
 );
 /*Inserting values into the customer table*/
 INSERT INTO customer (username, email, password, first_name, last_name, dob)
-VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26");
+VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26"),
+		("Kermit26", "kermit26@gmail.com", "Password12", "kermit", "frog", "2005-10-20");
 
-
+/*creating the table for loans*/
 CREATE TABLE loan (
 	loan_id INT NOT NULL AUTO_INCREMENT,
     customer_id INT NOT NULL,
-    apr FLOAT,
-    amount INT NOT NULL,
+    loan_apr DECIMAL(5, 2),
+    loan_amount DECIMAL(12, 2) NOT NULL,
     date_created DATE,
     PRIMARY KEY (loan_id),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
 );
-INSERT INTO loan (customer_id, apr, amount, date_created)
-VALUES  ("1", 5.5, 15000, "2020-03-17");
+INSERT INTO loan (customer_id, loan_apr, loan_amount, date_created)
+VALUES  ("1", 2, 15000, "2020-03-17");
 
 
 CREATE TABLE account (
 	account_id INT NOT NULL AUTO_INCREMENT,
     customer_id INT NOT NULL,
     type_id INT NOT NULL, 
-    balance FLOAT NOT NULL DEFAULT 0,
+    balance DECIMAL(12, 2) NOT NULL DEFAULT 0,
     PRIMARY KEY (account_id),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
     FOREIGN KEY (type_id) REFERENCES type(type_id)
 );
 INSERT INTO account (customer_id, type_id, balance)
-VALUES ("1", "1", 10);
+VALUES ("2", "1", 10);
 
 
 CREATE TABLE type (
 	type_id INT NOT NULL AUTO_INCREMENT, 
-    name VARCHAR(255) NOT NULL,
-    pricing FLOAT NOT NULL, 
+    type_name VARCHAR(255) NOT NULL,
+    pricing DECIMAL(5, 2) NOT NULL, 
     interest_rate FLOAT NOT NULL,
-    min FLOAT NOT NULL,
-    max FLOAT NOT NULL, 
-    description VARCHAR(255),
+    type_min FLOAT NOT NULL,
+    type_max FLOAT NOT NULL, 
+    type_description VARCHAR(255),
     PRIMARY KEY (type_id)
 );
-INSERT INTO type (name, pricing, interest_rate, min, max, description)
-VALUES ("Standard", 30, 1.5, 0, 10000, "Standard bank account");
+INSERT INTO type (type_name, pricing, interest_rate, type_min, type_max, type_description)
+VALUES ("Standard", 30.00, 1.5, 0, 10000, "Standard bank account");
 
 CREATE TABLE transaction (
 	transaction_id INT NOT NULL AUTO_INCREMENT,
     account_id INT NOT NULL,
     incoming BIT NOT NULL,
-	
-    
-    amount FLOAT NOT NULL,
+	tx_acfrom INT NOT NULL,
+    tx_acto INT NOT NULL,
+    tx_amount DECIMAL(12, 2) NOT NULL,
     dateOfTx DATE NOT NULL,
-    type_id INT NOT NULL,
     PRIMARY KEY (transaction_id),
-    FOREIGN KEY (account_id) REFERENCES account(account_id),
-    FOREIGN KEY (type_id) REFERENCES type(type_id)
+    FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
-
-
+INSERT INTO transaction (account_id, incoming, tx_acfrom, tx_acto, dateOfTx)
+VALUES ("1", "0", "2", "3", "2002-02-12");
 
 SELECT * FROM customer;
 SELECT * FROM loan;
 SELECT * FROM account;
 SELECT * FROM type;
+SELECT * FROM transaction;
 
 UPDATE account
 SET balance = balance + 10
-WHERE customer_id = 1;
+WHERE account_id = 2;
 
+DROP DATABASE banking_website;
+DROP TABLE transaction;
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+flush privileges;
