@@ -9,6 +9,7 @@ require("dotenv").config();
 
 const port = 3000 || process.env.port;
 
+//middleware
 //initialising sessions
 app.use(session({
     secret: "my secret key!",
@@ -19,6 +20,10 @@ app.use(session({
         secure: false
     }
 }))
+
+//initialising the body parser to be able to read post requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 const db = mysql.createConnection({
@@ -36,7 +41,7 @@ db.connect(function(error) {
 })
 
 app.get("/db", (req, res) => {
-    db.query("SELECT * FROM customer", function(err, results){
+    db.query("SELECT * FROM account", function(err, results){
         if(err){
             throw err;
         }
@@ -44,16 +49,13 @@ app.get("/db", (req, res) => {
     })
 })
 
-
-//middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 // routes for different pages
 const routes = require("./routes/routes");
 const user = require("./routes/user");
+const dashboard = require("./routes/dashboard");
 
 app.use("/", routes);
+app.use("/dashboard", dashboard)
 app.use("/api/user", user);
 
 // this allows the client to be able to access the

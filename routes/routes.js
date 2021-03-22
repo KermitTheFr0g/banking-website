@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/home", (req, res) => {
-    res.render("../public/views/home.ejs", { name: "alex" });
+    res.render("../public/views/home.ejs", { name: "oli" });
 })
 
 router.get("/signup", (req, res) => {
