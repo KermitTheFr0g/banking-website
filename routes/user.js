@@ -39,7 +39,10 @@ router.post("/signup", (req, res) => {
 
     bcrypt.genSalt(saltRounds, function(err, salt) {
         bcrypt.hash(password, salt, function(err, hash) {
-            console.log(hash);
+            if(err){
+                throw err;
+            }
+            var hashedPassword = hash;
         });
     });
 
@@ -48,16 +51,16 @@ router.post("/signup", (req, res) => {
     'VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26")';
 
 
-    
+    /*
     db.query(sql , function(err, results){
         if(err){
             throw err;
        }
         console.log(results);
     })
-    
+    */
 
-    console.log(req.body)
+    console.log(req.body);
     res.send("you have signed up");
 })
 

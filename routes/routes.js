@@ -1,12 +1,16 @@
 const express = require("express");
 const router = express.Router();
 
+router.get("", (req, res) => {
+    res.redirect("/")
+})
+
 router.get("/home", (req, res) => {
     res.render("../public/views/home.ejs", { name: "oli" });
 })
 
 router.get("/signup", (req, res) => {
-    return res.send("welcome to the signup page");
+    res.render("../public/views/signup.ejs");
 })
 
 router.get("/login", (req, res) => {
@@ -16,7 +20,7 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/login/forgotten-password", (req, res) => {
-    return res.send("welcome to the forgot-password page");
+    res.render("../public/views/forgotPassword.ejs");
 })
 
 

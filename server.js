@@ -30,9 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const routes = require("./routes/routes");
 const user = require("./routes/user");
 const dashboard = require("./routes/dashboard");
+const admin = require("./routes/admin");
 
 app.use("/", routes);
 app.use("/dashboard", dashboard)
+app.use("/admin", admin);
 app.use("/api/user", user);
 
 // this allows the client to be able to access the
