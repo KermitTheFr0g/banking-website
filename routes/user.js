@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
+
 const db = mysql.createConnection({
     host: "127.0.0.1",
     user: "root",
@@ -33,19 +37,28 @@ router.post("/signup", (req, res) => {
     var last_name = req.body.last_name;
     var dob = req.body.dob;
 
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+        bcrypt.hash(password, salt, function(err, hash) {
+            console.log(hash);
+        });
+    });
+
+
     var sql = 'INSERT INTO customer (username, email, password, first_name, last_name, dob)' +
     'VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26")';
 
+
+    
     db.query(sql , function(err, results){
         if(err){
             throw err;
        }
         console.log(results);
     })
-
+    
 
     console.log(req.body)
-    res.send("you have signed up nice");
+    res.send("you have signed up");
 })
 
 module.exports = router
