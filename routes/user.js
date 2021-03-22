@@ -2,6 +2,20 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
+const db = mysql.createConnection({
+    host: "127.0.0.1",
+    user: "root",
+    password: "password",
+    database: "banking_website"
+});
+
+db.connect(function(error) {
+    if(error){
+        throw error;
+    }
+    console.log("connected");
+})
+
 router.post("/login", (req, res) => {
     var username = req.body.username;
     var password = req.body.password;
@@ -18,6 +32,16 @@ router.post("/signup", (req, res) => {
     var first_name = req.body.first_name;
     var last_name = req.body.last_name;
     var dob = req.body.dob;
+
+    var sql = 'INSERT INTO customer (username, email, password, first_name, last_name, dob)' +
+    'VALUES  ("kermit", "kermit@gmail.com", "Password123", "Oli", "Gray", "2002-08-26")';
+
+    db.query(sql , function(err, results){
+        if(err){
+            throw err;
+       }
+        console.log(results);
+    })
 
 
     console.log(req.body)

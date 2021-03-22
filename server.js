@@ -26,29 +26,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-const db = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "password",
-    database: "banking_website"
-});
-
-db.connect(function(error) {
-    if(error){
-        throw error;
-    }
-    console.log("we have connected!");
-})
-
-app.get("/db", (req, res) => {
-    db.query("SELECT * FROM account", function(err, results){
-        if(err){
-            throw err;
-        }
-        res.send(results);
-    })
-})
-
 // routes for different pages
 const routes = require("./routes/routes");
 const user = require("./routes/user");

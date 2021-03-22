@@ -3,8 +3,15 @@ const router = express.Router();
 
 //if user is a customer this is the customer dashboard
 router.get("/:username", (req, res) => {
-    if(!req.session.username == req.params.username){
-        res.redirect("/" + req.session.username);
+    // if the user has not yet logged in they will be sent to the 
+    if(!req.session.username){
+        res.redirect("/login")
+    }
+
+    if(req.session.username === req.params.username){
+        res.send("welcome to the dashboard");
+    } else {
+        res.redirect("/dashboard/" + req.session.username);
     }
 })
 
