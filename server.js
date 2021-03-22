@@ -36,7 +36,7 @@ db.connect(function(error) {
 })
 
 app.get("/db", (req, res) => {
-    db.query("SELECT * FROM albums", function(err, results){
+    db.query("SELECT * FROM customer", function(err, results){
         if(err){
             throw err;
         }

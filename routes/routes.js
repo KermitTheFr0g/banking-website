@@ -19,10 +19,5 @@ router.get("/login/forgotten-password", (req, res) => {
     return res.send("welcome to the forgot-password page");
 })
 
-//if user is a customer this is the customer dashboard
-router.get("/dashboard/:username", (req, res) => {
-
-})
-
 
 module.exports = router;

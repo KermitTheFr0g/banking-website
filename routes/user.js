@@ -21,7 +21,7 @@ router.post("/signup", (req, res) => {
 
 
     console.log(req.body)
-    res.send("you have signed up bozo");
+    res.send("you have signed up nice");
 })
 
 module.exports = router
