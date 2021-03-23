@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../database");
 
 const validation = require("../validation/user");
 const user = require("../models/user");
@@ -18,7 +17,7 @@ router.post("/login", (req, res) => {
 })
 
 
-router.post("/signup", (req, res) => {
+router.post("/signup", async (req, res) => {
     var newUser = {
         username: req.body.username,
         email: req.body.email,
@@ -27,15 +26,28 @@ router.post("/signup", (req, res) => {
         last_name: req.body.last_name,
         dob: req.body.dob
     };
-
-    //const error = validation.signupValidation(newUser);
-    //if(error){
-    //    return res.statuscode(400).send(error)
-    //}
-
     
+    // this checks to ensure that all inputs are valid for the database
+    const validate = validation.signup(newUser);
+    if(validate){
+        return res.send(validate)
+    }
 
-    res.send("nice bro")
+    // makes a query to check to see if there is already a user with the same username in the database
+    const userExists = await user.checkIfUserExists(newUser);
+    if(userExists) return res.send("Username is taken");
+
+    // makes a query to check to see if there is already a user with the same email in the database
+    const emailExists = await user.checkIfEmailExists(newUser);
+    if(emailExists) return res.send("Email is already in use");
+
+    newUser.password = user.hashPassword(newUser.password);
+
+    if(user.createUser(newUser)){
+        console.log("New user has been created: " + newUser.username);
+        return res.send("Account created!")
+    }
+    return res.send("account creation failed")
 })
 
 module.exports = router

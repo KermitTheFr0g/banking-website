@@ -2,56 +2,35 @@ const db = require("../database");
 const bcrypt = require("bcrypt");
 
 var User = {
-    checkIfUserExists: function(newUser, callback) {
-
-        var sql = format("SELECT * FROM customer WHERE username = '{username}';", {
-            username: newUser.username
-        });
-
-        db.query(sql, (err, result) => {
-            if(err){
-                throw err
-            }
-
-            callback(result.length > 0);
-        });    
+    checkIfUserExists: async function(newUser){
+        const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [newUser.username]);
+        if(result.length > 0){
+            return true;
+        }
     },
 
-    checkIfEmailExists: function(newUser, callback) {
-        var sql = format("SELECT * FROM customer WHERE email = '{email}';", {
-            email: newUser.email
-        });
-
-
-        db.query(sql, (err, result) => {
-            if(err){
-                throw err;
-            }
-
-            callback(result.length > 0);
-        })
+    checkIfEmailExists: async function(newUser){
+        const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE email = ?", [newUser.email]);
+        if(result.length > 0){
+            return true;
+        }
     },
 
-    createNewUser: function(newUser, callback){
-        var sql = format('INSERT INTO customer (username, email, password, first_name, last_name, dob)' +
-        'VALUES  ("{username}", "{email}", "{password}", "{firstName}", "{lastName}", "{dob}");', {
-            username: newUser.username,
-            email: newUser.email,
-            password: newUser.password,
-            firstName: newUser.first_name,
-            lastName: newUser.last_name,
-            dob: newUser.dob
-            }
-        )
+    createUser: async function(newUser){
+        const [result, schema] = await db.promise().query("INSERT INTO customer (username, email, password, first_name, last_name, dob) VALUES (?, ? , ?, ?, ?, ?)", 
+            [
+                newUser.username,
+                newUser.email,
+                newUser.password,
+                newUser.first_name,
+                newUser.last_name,
+                newUser.dob
+            ]
 
-        db.query(sql , function(err, result){
-            if(err){
-                throw err;
-           }
-
-           callback(true);
-        })
-
+        );
+        if(result.affectedRows == 1){
+            return true;
+        }
     },
 
     hashPassword: function(password) {

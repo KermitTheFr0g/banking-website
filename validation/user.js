@@ -1,12 +1,11 @@
-function loginValidation(body){
-    
+var validation = {
+    login: function(user){
+        return;
+    },
 
-
+    signup: function(newUser){
+        return;
+    }
 }
 
-function signupValidation(){
-    return;
-}
-
-module.exports.loginValidation = loginValidation();
-module.exports.signupValidation = signupValidation();
+module.exports = validation
