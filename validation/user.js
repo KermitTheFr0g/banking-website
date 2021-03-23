@@ -1,5 +1,7 @@
-function loginValidation(){
-    return;
+function loginValidation(body){
+    
+
+
 }
 
 function signupValidation(){

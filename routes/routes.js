@@ -3,15 +3,15 @@ const router = express.Router();
 const Validation = require("../validation/user");
 
 router.get("", (req, res) => {
-    res.redirect("/")
+    return res.redirect("/home");
 })
 
 router.get("/home", (req, res) => {
-    res.render("../public/views/home.ejs", { name: "oli" });
+    return res.render("../public/views/home.ejs", { name: "oli" });
 })
 
 router.get("/signup", (req, res) => {
-    res.render("../public/views/user/signup.ejs");
+    return res.render("../public/views/user/signup.ejs");
 })
 
 router.get("/login", (req, res) => {
@@ -21,7 +21,7 @@ router.get("/login", (req, res) => {
 })
 
 router.get("/login/forgotten-password", (req, res) => {
-    res.render("../public/views/user/forgotPassword.ejs");
+    return res.render("../public/views/user/forgotPassword.ejs");
 })
 
 module.exports = router;
