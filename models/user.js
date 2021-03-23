@@ -2,6 +2,13 @@ const db = require("../database");
 const bcrypt = require("bcrypt");
 
 var User = {
+    login: async function(user){
+        const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
+        if(result.length > 0){
+            return await bcrypt.compare(user.password, result[0].password);
+        }
+    },
+
     checkIfUserExists: async function(newUser){
         const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [newUser.username]);
         if(result.length > 0){
@@ -36,6 +43,21 @@ var User = {
     hashPassword: function(password) {
         let salt = bcrypt.genSaltSync(10);
         return bcrypt.hashSync(password, salt);
-    }    
+    },
+
+    getCustomerId: async function(user){
+        const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
+        if(result.length > 0){
+            return result[0].customer_id;
+        }
+    },
+
+    createLoan: async function(user) {
+        const [result, schema] = await db.promise().query("SEARCH * FROM loans WHERE username = ?")
+    },
+
+    payLoan: function(user) {
+
+    } 
 }
 module.exports = User;

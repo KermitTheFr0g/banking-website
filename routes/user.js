@@ -5,19 +5,32 @@ const validation = require("../validation/user");
 const user = require("../models/user");
 
 
-router.post("/login", (req, res) => {
-    var user = {
+router.post("/login", async (req, res) => {
+    if(req.session.username){
+        return res.send("User already logged in");
+    }
+
+    var userLogin = {
         username: req.body.username,
         password: req.body.password
     }
 
-    user.login()
+    const userLoggedIn = await user.login(userLogin);
+    if(userLoggedIn){
+        req.session.username = userLogin.username;
+        req.session.customer_id = await user.getCustomerId(userLogin);
+        return res.send("User successfully logged in");
+    }
 
-    return res.send("epic it worked");
+    return res.send("Username or password Incorrect");
 })
 
 
 router.post("/signup", async (req, res) => {
+    if(req.session.username){
+        return res.send("User already logged in");
+    }
+
     var newUser = {
         username: req.body.username,
         email: req.body.email,
@@ -43,11 +56,50 @@ router.post("/signup", async (req, res) => {
 
     newUser.password = user.hashPassword(newUser.password);
 
+    // creates the account 
+    // if function returns true it has made the account successfully
     if(user.createUser(newUser)){
         console.log("New user has been created: " + newUser.username);
+        // add the username to session
+        req.session.username = newUser.username
+        req.session.customer_id = await user.getCustomerId(newUser.username);
         return res.send("Account created!")
     }
     return res.send("account creation failed")
 })
 
+
+router.post("/create/loan", async (req, res) => {
+    if(!req.session.username){
+        return res.send("User needs to be logged in")
+    }
+
+    var userLogged = {
+        username: req.session.username,
+        customer_id: req.session.customer_id,
+        amount: req.body.amount,
+        date: new Date()
+    };
+
+    
+
+
+
+
+
+})
+
+
+router.post("/pay/loan", async (req, res) => {
+    if(!req.session.username){
+        return res.send("User needs to be logged in")
+    }
+
+    var userLogged = {
+        username: req.session.username
+    }
+
+
+
+})
 module.exports = router

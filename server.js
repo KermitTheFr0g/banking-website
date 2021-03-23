@@ -30,11 +30,13 @@ const routes = require("./routes/routes");
 const user = require("./routes/user");
 const dashboard = require("./routes/dashboard");
 const admin = require("./routes/admin");
+const transaction = require("./routes/transaction");
 
 app.use("/", routes);
 app.use("/dashboard", dashboard)
 app.use("/admin", admin);
 app.use("/api/user", user);
+app.use("/api/transaction", transaction);
 
 // this allows the client to be able to access the
 app.use(express.static("./public"));
