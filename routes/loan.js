@@ -30,11 +30,18 @@ router.post("/pay", async (req, res) => {
     }
 
     var userLogged = {
-        username: req.session.username
+        username: req.session.username,
+        customer_id: req.session.customer_id,
+        loan_id: req.body.loan_id,
+        amount: req.body.amount,
+        from: req.body.account_id
     }
 
+    
 
+    const payLoan = await loan.payLoan(userLogged);
 
+    return res.send("pog")
 })
 
 router.get("/get", async (req, res) => {
