@@ -14,6 +14,10 @@ var loan = {
     },
 
     payLoan: async function(user) {
+        // add some validation for the payment
+        // ensure the user has the money to pay the loan
+        // take the money from the bank account
+
         const [result, schema] = await db.promise().query("SELECT * FROM loan WHERE customer_id = ? AND loan_id = ?;", 
         [
             user.customer_id, 
