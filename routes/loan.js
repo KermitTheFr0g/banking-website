@@ -16,11 +16,11 @@ router.post("/create", async (req, res) => {
     };
 
     const createdLoan = await loan.createLoan(userLogged);
-    if(createdLoan){
+    if(createdLoan == "CREATED"){
         return res.send("Loan has been created");
     }
 
-    return res.send("Loan creation has been failed")
+    return res.send("Loan creation failed - " + createdLoan);
 })
 
 
@@ -37,11 +37,14 @@ router.post("/pay", async (req, res) => {
         from: req.body.account_id
     }
 
-    
+
 
     const payLoan = await loan.payLoan(userLogged);
+    if(payLoan == "LOAN_PAID"){
+        return res.send("Loan successfully paid")
+    }
 
-    return res.send("pog")
+    return res.send("Paying loan failed - " + payLoan);
 })
 
 router.get("/get", async (req, res) => {

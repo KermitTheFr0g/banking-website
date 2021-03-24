@@ -31,6 +31,7 @@ const user = require("./routes/user");
 const dashboard = require("./routes/dashboard");
 const admin = require("./routes/admin");
 const loan = require("./routes/loan");
+const account = require("./routes/account");
 const transaction = require("./routes/transaction");
 
 app.use("/", routes);
@@ -38,6 +39,7 @@ app.use("/dashboard", dashboard)
 app.use("/admin", admin);
 app.use("/api/user", user);
 app.use("/api/loan", loan)
+app.use("/api/account", account)
 app.use("/api/transaction", transaction);
 
 // this allows the client to be able to access the
