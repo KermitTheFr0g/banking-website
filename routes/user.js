@@ -15,10 +15,21 @@ router.post("/login", async (req, res) => {
         password: req.body.password
     }
 
+    const validate = validation.login(userLogin);
+    if(validate){
+        return res.send(validate);
+    }
+
     const userLoggedIn = await user.login(userLogin);
     if(userLoggedIn){
         req.session.username = userLogin.username;
         req.session.customer_id = await user.getCustomerId(userLogin);
+
+        const isAdmin = await user.isAdmin(userLogin);
+        if(isAdmin){
+            req.session.admin = true;
+        }
+        
         return res.send("User successfully logged in");
     }
 
@@ -68,38 +79,11 @@ router.post("/signup", async (req, res) => {
     return res.send("account creation failed")
 })
 
-
-router.post("/create/loan", async (req, res) => {
-    if(!req.session.username){
-        return res.send("User needs to be logged in")
+router.post("/admin/register", async (req, res) => {
+    if(!req.session.admin){
+        return res.staus(400).send("You shouldnt be here!");
     }
-
-    var userLogged = {
-        username: req.session.username,
-        customer_id: req.session.customer_id,
-        amount: req.body.amount,
-        date: new Date()
-    };
-
-    
-
-
-
-
-
 })
 
 
-router.post("/pay/loan", async (req, res) => {
-    if(!req.session.username){
-        return res.send("User needs to be logged in")
-    }
-
-    var userLogged = {
-        username: req.session.username
-    }
-
-
-
-})
 module.exports = router

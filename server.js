@@ -30,16 +30,24 @@ const routes = require("./routes/routes");
 const user = require("./routes/user");
 const dashboard = require("./routes/dashboard");
 const admin = require("./routes/admin");
+const loan = require("./routes/loan");
 const transaction = require("./routes/transaction");
 
 app.use("/", routes);
 app.use("/dashboard", dashboard)
 app.use("/admin", admin);
 app.use("/api/user", user);
+app.use("/api/loan", loan)
 app.use("/api/transaction", transaction);
 
 // this allows the client to be able to access the
 app.use(express.static("./public"));
+
+app.get("/test", (req, res) => {
+    console.log(req.session)
+
+    return res.send("test done")
+})
 
 app.listen(port, () => {
     console.log("server up and running");

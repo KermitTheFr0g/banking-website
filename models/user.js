@@ -45,19 +45,18 @@ var User = {
         return bcrypt.hashSync(password, salt);
     },
 
+    isAdmin: async function(user){
+        const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
+        if(result[0].admin == 1){
+            return true;
+        }
+    },
+
     getCustomerId: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
         if(result.length > 0){
             return result[0].customer_id;
         }
     },
-
-    createLoan: async function(user) {
-        const [result, schema] = await db.promise().query("SEARCH * FROM loans WHERE username = ?")
-    },
-
-    payLoan: function(user) {
-
-    } 
 }
 module.exports = User;
