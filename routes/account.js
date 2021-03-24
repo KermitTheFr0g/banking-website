@@ -15,9 +15,11 @@ router.post("/open", async (req, res) => {
     }
 
     const openAccount = await account.openAccount(userLogged);
-    console.log(openAccount)
+    if(openAccount == "SUCESSFULLY CREATED ACCOUNT"){
+        return res.send("Successfully created account");
+    }
 
-    return res.send("pog bro");
+    return res.send("Account creation failed - " + openAccount);
 })
 
 router.get("/view", async (req, res) => {

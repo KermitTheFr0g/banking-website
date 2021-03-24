@@ -6,7 +6,6 @@ var loan = {
         const accounts = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id]);
         // if the user doesnt have an account then the user is returned with tis error message
         if(!accounts[0].length > 0){
-            console.log(accounts[0]);
             return "NO ACCOUNT TO ADD MONEY";
         };
 
