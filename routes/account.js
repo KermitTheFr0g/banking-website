@@ -22,6 +22,17 @@ router.post("/open", async (req, res) => {
     return res.send("Account creation failed - " + openAccount);
 })
 
+router.post("/close", async (req, res) => {
+    if(!res.session.username){
+        return res.send("You need to be logged in");
+    }
+
+
+
+
+    return res.send("nice")
+})
+
 router.get("/view", async (req, res) => {
     if(!req.session.username){
         return res.send("You need to be logged in");
