@@ -31,7 +31,7 @@ var account = {
         // making a db call for all the accounts that are tied to the users 
         const [result, schema] = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id])
         if(!result.length > 0){
-            return false;
+            return "THIS USER HAS NO ACCOUNTS";
         }
 
         return result;

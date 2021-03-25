@@ -1,4 +1,5 @@
 const db = require("../database");
+const validation = require("../validation/user");
 
 var loan = {
     createLoan: async function(user) {
@@ -29,33 +30,60 @@ var loan = {
     },
 
     payLoan: async function(user) {
-        // add some validation for the payment
-        // ensure the user has the money to pay the loan
-        // take the money from the bank account
+        // make sure that they are not overpaying for the loan
 
-        const balance = await db.promise().query("SELECT * FROM account WHERE account_id = ?", [user.from])
-        if(!balance[0]){
-            console.log(balance[0])
+        // verifying that the user has the money in the account to pay for the loan
+        const balance = await db.promise().query("SELECT * FROM account WHERE account_id = ? AND customer_id = ?", 
+        [
+            user.from,
+            user.customer_id
+        ])
+
+        // this checks to see if there is account with that id tied to their customer id
+        if(!balance[0][0]){
             return "ACCOUNT DOES NOT EXIST";
         }
-        if(amount > balance[0].balance){
+
+        // this checks that the balance of that account is as much as they are sending to pay the loan
+        if(user.amount > balance[0][0].balance){
             return "INSUFFICIENT FUNDS"
         }
 
+        // this gets the loan that the customer owns
         const loans = await db.promise().query("SELECT * FROM loan WHERE customer_id = ? AND loan_id = ?;", 
         [
             user.customer_id, 
             user.loan_id
         ])
 
+
+        // if the loan exists then this is where the money will be paid
         if(loans[0].length > 0){ 
+
+             // if the amount the user was paying was more than loan 
+            // the amount is adjusted to the exact amount of the loan
+            if(user.amount > loans[0][0].loan_amount){
+                user.amount = loans[0][0].loan_amount;
+            }
+
             const [result, schema] = await db.promise().query("UPDATE loan SET loan_amount = loan_amount - ? WHERE loan_id = ?", 
             [
                 user.amount,
                 user.loan_id
             ])
+
+            const paid = await db.promise().query("UPDATE account SET balance = balance - ? WHERE customer_id = ?;", 
+            [
+                user.amount,
+                user.customer_id
+            ])
+
+        // if the loan does not exist invalid loan id is returned to the user
+        }else {
+            return "INVALID LOAN ID";
         }
 
+        // if all of thes tests have passed we reach the final return sending the completed message
         return "LOAN_PAID"
     },
 
