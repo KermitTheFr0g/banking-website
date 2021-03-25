@@ -73,7 +73,7 @@ router.post("/signup", async (req, res) => {
         console.log("New user has been created: " + newUser.username);
         // add the username to session
         req.session.username = newUser.username
-        req.session.customer_id = await user.getCustomerId(newUser.username);
+        req.session.customer_id = await user.getCustomerId(newUser);
         return res.send("Account created!")
     }
     return res.send("account creation failed")
