@@ -56,7 +56,7 @@ app.post("/epic", (req, res) => {
     console.log(req.body);
 })
 
-app.listen(port, "192.168.0.41", () => {
+app.listen(port, () => {
     console.log("server up and running");
     console.log("on port " + port);
     //process.env.port);

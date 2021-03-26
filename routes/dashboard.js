@@ -9,7 +9,7 @@ router.get("/:username", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.send("welcome to the dashboard");
+        return res.render("../public/views/userDashboard.ejs");
     } else {
         return res.redirect("/dashboard/" + req.session.username);
     }
