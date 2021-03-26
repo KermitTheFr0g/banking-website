@@ -25,11 +25,16 @@ router.post("/login", async (req, res) => {
         req.session.username = userLogin.username;
         req.session.customer_id = await user.getCustomerId(userLogin);
 
+        // checking if the user is an admin and then adding to cookies if they are
         const isAdmin = await user.isAdmin(userLogin);
         if(isAdmin){
             req.session.admin = true;
+            console.log("Admin has logged in - " + userLogin.username)
+            return res.redirect("/dashboard/" + userLogin.username);
+            return res.send("Admin Successfully logged in")
         }
         
+        console.log("User has logged in - " + userLogin.username)
         return res.send("User successfully logged in");
     }
 
@@ -74,6 +79,7 @@ router.post("/signup", async (req, res) => {
         // add the username to session
         req.session.username = newUser.username
         req.session.customer_id = await user.getCustomerId(newUser);
+        
         return res.send("Account created!")
     }
     return res.send("account creation failed")
@@ -81,9 +87,42 @@ router.post("/signup", async (req, res) => {
 
 router.post("/admin/register", async (req, res) => {
     if(!req.session.admin){
-        return res.staus(400).send("You shouldnt be here!");
+        return res.status(403).send("You shouldnt be here!");
     }
-})
+
+    var adminUser = {
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        dob: req.body.dob
+    };
+    
+    // this checks to ensure that all inputs are valid for the database
+    const validateAdmin = validation.signup(adminUser);
+    if(validateAdmin){
+        return res.send(validateAdmin)
+    }
+
+    // makes a query to check to see if there is already a user with the same username in the database
+    const AdminUserExists = await user.checkIfUserExists(adminUser);
+    if(AdminUserExists) return res.send("Username is taken");
+
+    // makes a query to check to see if there is already a user with the same email in the database
+    const AdminEmailExists = await user.checkIfEmailExists(adminUser);
+    if(AdminEmailExists) return res.send("Email is already in use");
+
+    adminUser.password = user.hashPassword(adminUser.password);
+
+    // creates the account 
+    // if function returns true it has made the account successfully
+    if(user.createAdmin(adminUser)){
+        console.log("New admin user has been created: " + adminUser.username);
+
+        return res.send("Admin Account created!")
+    }
+});
 
 
 module.exports = router

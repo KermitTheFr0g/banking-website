@@ -40,6 +40,24 @@ var User = {
         }
     },
 
+    createAdmin: async function(newUser){
+        const [result, schema] = await db.promise().query("INSERT INTO customer (username, email, password, first_name, last_name, dob, admin) VALUES (?, ? , ?, ?, ?, ?, 1)", 
+            [
+                newUser.username,
+                newUser.email,
+                newUser.password,
+                newUser.first_name,
+                newUser.last_name,
+                newUser.dob
+            ]
+
+        );
+        if(result.affectedRows == 1){
+            return true;
+        }
+    },
+
+
     hashPassword: function(password) {
         let salt = bcrypt.genSaltSync(10);
         return bcrypt.hashSync(password, salt);
@@ -47,7 +65,10 @@ var User = {
 
     isAdmin: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
-        if(result[0].admin == 1){
+
+        var admin = parseInt(result[0].admin.toString("hex"));
+
+        if(admin == 1){
             return true;
         }
     },

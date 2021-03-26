@@ -21,47 +21,37 @@
 
 <body>
 
-<h2 class="title">Login!</h2>
+    <h2 class="title">Login!</h2>
 
-<form action="" id="loginForm">
 
     <div class="container">
         <div>
             <label for="username">Username</label>
             <input type="text" placeholder="Username" name="username" id="username" required>
         </div>
-
         <div>
             <label for="password">Password</label>
             <input type="password" placeholder="Password" name="password" id="password" required>
         </div>
-
         <div>
-            <button id="login" type="submit">Log In</button>
+            <button id="login" type="submit" onclick="login()">Log In</button>
         </div>
-
         <div>
             <label for="" style="font-size: 20px;">
                 <input type="checkbox" checked="checked"> Remember me
             </label>
         </div>
-
         <div class="links">
             <span class="psw" style="font-size: 15px; margin-left: 10px;">Forgot <a href="/login/forgotten-password">password?</a></span>
             <a style="font-size: 15px; margin-left: 65px;" href="/signup">Sign Up</a>
         </div>
-
         <div class="row" style="margin-top: 20px;">
             <label id="errorLabel"></label>
         </div>
-
     </div>
 
-</form>
 
-
-
-<script src="../js/login.js"></script>
+    <script type="text/javascript" src="../js/login.js"/>
 </body>
 
 </html>

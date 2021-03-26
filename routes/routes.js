@@ -11,17 +11,33 @@ router.get("/home", (req, res) => {
 })
 
 router.get("/signup", (req, res) => {
-    return res.render("../public/views/user/signup.ejs");
+    return res.render("../public/views/signup.ejs");
 })
 
 router.get("/login", (req, res) => {
     req.session.username = "kermit";
     req.session.admin = true;
-    return res.render("../public/views/user/login.ejs");
+    return res.render("../public/views/login.ejs");
 })
 
 router.get("/login/forgotten-password", (req, res) => {
-    return res.render("../public/views/user/forgotPassword.ejs");
+    return res.render("../public/views/forgotPassword.ejs");
+})
+
+router.get("/logout", (req, res) => {
+    if(!req.session.username){
+        return res.send("You are not yet logged in");
+    }
+    // if the user is an admin
+    if(req.session.admin){
+        console.log("Admin logged out - " + req.session.username);
+        req.session.destroy();
+        return res.redirect("/home");
+    }
+
+    console.log("User logged out - " + req.session.username);
+    req.session.destroy();
+    return res.redirect("/home");
 })
 
 module.exports = router;
