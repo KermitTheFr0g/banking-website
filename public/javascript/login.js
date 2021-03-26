@@ -1,4 +1,4 @@
-async function old(){
+async function login(){
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     
@@ -20,10 +20,13 @@ async function old(){
     })
     .then(res => res.text())
     .then(text => {
-        console.log(text)
+        console.log(text);
+        if(text == "user logged in"){
+            window.location.href = "/dashboard/user";
+        } else {
+            window.location.href = "/admin/dashboard/user";
+        }
     })
 }
 
-function login(){
-    alert("i am working now")
-}
+

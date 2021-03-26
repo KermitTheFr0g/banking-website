@@ -15,8 +15,6 @@ router.get("/signup", (req, res) => {
 })
 
 router.get("/login", (req, res) => {
-    req.session.username = "kermit";
-    req.session.admin = true;
     return res.render("../public/views/login.ejs");
 })
 

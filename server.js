@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use("/public", express.static("public"))
 
-
 // routes for different pages
 const routes = require("./routes/routes");
 const user = require("./routes/user");

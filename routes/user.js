@@ -6,7 +6,6 @@ const user = require("../models/user");
 
 
 router.post("/login", async (req, res) => {
-    console.log(req.session.username)
     if(req.session.username){
         return res.send("User already logged in");
     }
@@ -31,12 +30,11 @@ router.post("/login", async (req, res) => {
         if(isAdmin){
             req.session.admin = true;
             console.log("Admin has logged in - " + userLogin.username)
-            return res.redirect("/dashboard/" + userLogin.username);
-            return res.send("Admin Successfully logged in")
+            return res.send("logged in")
         }
         
         console.log("User has logged in - " + userLogin.username)
-        return res.send("User successfully logged in");
+        return res.send("user logged in");
     }
 
     return res.send("Username or password Incorrect");
