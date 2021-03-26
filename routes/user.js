@@ -6,6 +6,7 @@ const user = require("../models/user");
 
 
 router.post("/login", async (req, res) => {
+    console.log(req.session.username)
     if(req.session.username){
         return res.send("User already logged in");
     }

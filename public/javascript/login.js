@@ -1,11 +1,13 @@
-async function login(){
-    var username = document.getElementById("username");
-    var password = document.getElementById("password");
+async function old(){
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
     
     var data = {
         username: username,
         password: password
     }
+
+    console.log(data)
     var url = "/api/user/login"
 
 
@@ -19,9 +21,9 @@ async function login(){
     .then(res => res.text())
     .then(text => {
         console.log(text)
-        if(text == "nice it worked"){
-            window.location.href = "/home";
-        }
     })
+}
 
+function login(){
+    alert("i am working now")
 }
