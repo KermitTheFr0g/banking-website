@@ -4,7 +4,12 @@ const validation = require("../validation/user");
 var loan = {
     createLoan: async function(user) {
         // check the user has an account
-        const accounts = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id]);
+        const accounts = await db.promise().query("SELECT * FROM account WHERE customer_id = ? AND account_id = ?", 
+        [
+            user.customer_id,
+            user.account_id
+        ]);
+
         // if the user doesnt have an account then the user is returned with tis error message
         if(!accounts[0].length > 0){
             return "NO ACCOUNT TO ADD MONEY";
@@ -19,10 +24,11 @@ var loan = {
         ]);
 
         // this is where the money is added to the user's account
-        const addedMoney = await db.promise().query("UPDATE account SET balance = balance + ? WHERE customer_id = ?", 
+        const addedMoney = await db.promise().query("UPDATE account SET balance = balance + ? WHERE customer_id = ? AND account_id = ?", 
         [
             user.amount,
-            user.customer_id
+            user.customer_id,
+            user.account_id
         ])
         
         // before returning money needs to be added to the user's account

@@ -57,8 +57,15 @@
                 <button>Take out loan</button>
             </div>
         <% } %>
-
-
+        
+        <% if (!(amountOfAccounts > 4)) { %>
+            <div class="accountCard" id="account4_card">
+                <label style="font-size: 30px;">Open New account</label>
+                <label class="id" id="account1_id"></label>
+                <label class="balance"></label>
+                <button>Take out loan</button>
+            </div>
+        <% } %>
     </div>
 
   <script src="/public/javascript/login.js"></script>

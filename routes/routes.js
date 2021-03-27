@@ -24,9 +24,9 @@ router.get("/login", (req, res) => {
     if(req.session.admin){
         return res.redirect("/admin/dashboard/" + req.session.username);
     } else if(req.session.username) {
-        return res.redirect("/dashbord/" + req.session.username);
+        return res.redirect("/dashboard/" + req.session.username);
     }
-    
+
     return res.render("../public/views/login.ejs");
 })
 

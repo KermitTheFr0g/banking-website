@@ -1,25 +1,35 @@
 const express = require("express");
 const router = express.Router();
+const account = require("../models/account");
 
 //if user is a customer this is the customer dashboard
-router.get("/:username", (req, res) => {
+router.get("/:username", async (req, res) => {
     // if the user has not yet logged in they will be sent to the 
     if(!req.session.username){
         return res.redirect("/login")
     }
 
     if(req.session.username === req.params.username){
+
+        var loggedUser = {
+            username: req.session.username,
+            customer_id: req.session.customer_id
+        }
+
+        const accounts = await account.checkAccounts(loggedUser);
+
         return res.render("../public/views/userDashboard.ejs", 
         { 
             user: req.session.username,
-            account1_id: "test",
-            account1_balance: 1000,
-            account2_id: "test",
-            account2_balance: 9999,
-            account3_id: "test",
-            account3_balance: 10,
-            account4_id: 0,
-            account4_balance: 1000,
+            account1_id: accounts.id1,
+            account1_balance: accounts.balance1,
+            account2_id: accounts.id2,
+            account2_balance: accounts.balance2,
+            account3_id: accounts.id3,
+            account3_balance: accounts.balance3,
+            account4_id: accounts.id4,
+            account4_balance: accounts.balance4,
+            amountOfAccounts: accounts.amount
         });
 
     } else {

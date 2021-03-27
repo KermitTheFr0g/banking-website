@@ -39,8 +39,55 @@ var account = {
         }
 
         return result;
-    }
+    },
 
+
+    checkAccounts: async function(user){
+        const [balances, other] = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id]);
+        
+        if(!balances[0]){
+            var accountid_1 = 0
+        } else {
+            var accountid_1 = balances[0].account_id
+            var accountbalance_1 = balances[0].balance
+        }
+
+        if(!balances[1]){
+            var accountid_2 = 0
+        } else {
+            var accountid_2 = balances[1].account_id
+            var accountbalance_2 = balances[1].balance
+        }
+
+        if(!balances[2]){
+            var accountid_3 = 0
+        } else {
+            var accountid_3 = balances[2].account_id
+            var accountbalance_3 = balances[2].balance
+        }
+
+        if(!balances[3]){
+            var accountid_4 = 0
+        } else {
+            var accountid_4 = balances[3].account_id
+            var accountbalance_4 = balances[3].balance
+        }
+
+        var returningBalance = {
+            id1: accountid_1,
+            balance1: accountbalance_1 || 0,
+            id2: accountid_2,
+            balance2: accountbalance_2 || 0,
+            id3: accountid_3,
+            balance3: accountbalance_3 || 0,
+            id4: accountid_4,
+            balance4: accountbalance_4 || 0,
+            amount: balances.length
+        }
+
+        return returningBalance;
+
+    }
 }
 
 module.exports = account;

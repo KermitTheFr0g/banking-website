@@ -12,6 +12,7 @@ router.post("/create", async (req, res) => {
         username: req.session.username,
         customer_id: req.session.customer_id,
         amount: req.body.amount,
+        account_id: req.body.account_id,
         date: new Date()
     };
 
