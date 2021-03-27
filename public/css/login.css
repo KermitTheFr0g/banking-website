@@ -66,6 +66,7 @@ button[id="signUp"]:hover {
 
 .links {
     text-decoration: none;
+    color: white;
 }
 
 .error{

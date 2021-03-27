@@ -1,7 +1,8 @@
 body{
     font-family: "Montserrat", sans-serif;
     font-size: 26px;
-    background-color: #a9ddb4;
+    background-color: #2C2F33;
+    color: white;
     background-position: bottom;
     background-size: cover;
     background-repeat: no-repeat;
@@ -25,7 +26,7 @@ body {
     margin: 0 auto;
     width: 300px;
     height: 370px;
-    background-color: #676797;
+    background-color: #23272A;
     border-radius: 10px;
 }
 
@@ -35,14 +36,18 @@ body {
 }
 
 input[type=text], input[type=password] {
+    background-color: #2C2F33;
     width: 90%;
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
 button[id="login"] {
-    background-color: #56567c;
+    background-color: #2C2F33;
     padding: 14px 20px;
     border: none;
     width: 80%;
@@ -53,4 +58,8 @@ button[id="login"]:hover {
     opacity: 0.8;
 }
 
+.links {
+    text-decoration: none;
+    color: white;
+}
 
