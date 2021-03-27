@@ -9,7 +9,19 @@ router.get("/:username", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
+        return res.render("../public/views/userDashboard.ejs", 
+        { 
+            user: req.session.username,
+            account1_id: "test",
+            account1_balance: 1000,
+            account2_id: "test",
+            account2_balance: 9999,
+            account3_id: "test",
+            account3_balance: 10,
+            account4_id: 0,
+            account4_balance: 1000,
+        });
+
     } else {
         return res.redirect("/dashboard/" + req.session.username);
     }
@@ -35,7 +47,8 @@ router.get("/:username/loans", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
+        return res.render("../public/views/userDashboard.ejs", { user: req.session.username });
+
     } else {
         return res.redirect("/dashboard/" + req.session.username + "/loans");
     }

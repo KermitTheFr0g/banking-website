@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-flow: row-wrap;
     justify-content: flex-end;
-    
+
 }
 
 .mainContainer {
@@ -39,6 +39,7 @@ body {
     margin: 30px;
     padding: 50px;
     background-color: #2C2F33;
+    border-radius: 6%;
 }
 
 .balance {

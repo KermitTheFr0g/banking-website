@@ -22,35 +22,43 @@
     </div>
 
     <div class="mainContainer">
-        <div class="accountCard" id="account1_card">
-            <label style="font-size: 30px;">Account 1</label>
-            <label class="id" id="account1_id">account1_id</label>
-            <label class="balance">null</label>
-            <button>Take out loan</button>
-        </div>
+        <% if (!account1_id == 0) { %>
+            <div class="accountCard" id="account1_card">
+                <label style="font-size: 30px;">Account 1</label>
+                <label class="id" id="account1_id">ID: <%=account1_id %></label>
+                <label class="balance">£<%=account1_balance %></label>
+                <button>Take out loan</button>
+            </div>
+        <% } %>
 
-        <div class="accountCard" id="account2_card">
-            <label style="font-size: 30px;">Account 2</label>
-            <label class="id" id="account1_id">account2_id</label>
-            <label class="balance">null</label>
-            <button>Take out loan</button>
-        </div>
+        <% if (!account2_id == 0) { %>
+            <div class="accountCard" id="account2_card">
+                <label style="font-size: 30px;">Account 2</label>
+                <label class="id" id="account1_id">ID: <%=account2_id %></label>
+                <label class="balance">£<%=account2_balance %></label>
+                <button>Take out loan</button>
+            </div>
+        <% } %>
 
-        <div class="accountCard" id="account3_card">
-            <label style="font-size: 30px;">Account 3</label>
-            <label class="id" id="account1_id">account3_id</label>
-            <label class="balance">null</label>
-            <button>Take out loan</button>
-        </div>
+        <% if (!account3_id == 0) { %>
+            <div class="accountCard" id="account3_card">
+                <label style="font-size: 30px;">Account 3</label>
+                <label class="id" id="account1_id">ID: <%=account3_id %></label>
+                <label class="balance">£<%=account3_balance %></label>
+                <button>Take out loan</button>
+            </div>
+        <% } %>
 
-        <div class="accountCard" id="account4_card">
-            <label style="font-size: 30px;">Account 4</label>
-            <label class="id" id="account1_id">account4_id</label>
-            <label class="balance">null</label>
-            <button>Take out loan</button>
-        </div>
+        <% if (!account4_id == 0) { %>
+            <div class="accountCard" id="account4_card">
+                <label style="font-size: 30px;">Account 4</label>
+                <label class="id" id="account1_id">ID: <%=account4_id %></label>
+                <label class="balance">£<%=account4_balance %></label>
+                <button>Take out loan</button>
+            </div>
+        <% } %>
 
-    
+
     </div>
 
   <script src="/public/javascript/login.js"></script>
