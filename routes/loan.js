@@ -59,7 +59,7 @@ router.get("/get", async (req, res) => {
     const userLoans = await loan.getLoans(userLogged);
     console.table(userLoans);
 
-    return res.send("finsihed");
+    return res.send(userLoans);
 })
 
 module.exports = router;

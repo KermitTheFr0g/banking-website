@@ -33,7 +33,7 @@ router.post("/close", async (req, res) => {
     return res.send("nice")
 })
 
-router.get("/view", async (req, res) => {
+router.get("/get", async (req, res) => {
     if(!req.session.username){
         return res.send("You need to be logged in");
     }
@@ -46,7 +46,7 @@ router.get("/view", async (req, res) => {
     const accounts = await account.viewAccounts(userLogged);
     console.table(accounts);
 
-    return res.send("epic bro")
+    return res.send(accounts)
 })
 
 

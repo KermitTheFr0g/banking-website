@@ -9,20 +9,36 @@ router.get("/:username", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.render("../public/views/userDashboard.ejs");
+        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
     } else {
         return res.redirect("/dashboard/" + req.session.username);
     }
 })
 
 //account page for user
-router.get("/:username/accounts", (req, res) => {
-    res.send(req.params.username);
+router.get("/:username/transactions", (req, res) => {
+    if(!req.session.username){
+        return res.redirect("/login")
+    }
+
+    if(req.session.username === req.params.username){
+        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
+    } else {
+        return res.redirect("/dashboard/" + req.session.username + "/transactions");
+    }
 })
 
 //loans page for user
 router.get("/:username/loans", (req, res) => {
-    res.send(req.params.username);
+    if(!req.session.username){
+        return res.redirect("/login")
+    }
+
+    if(req.session.username === req.params.username){
+        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
+    } else {
+        return res.redirect("/dashboard/" + req.session.username + "/loans");
+    }
 })
 
 module.exports = router;

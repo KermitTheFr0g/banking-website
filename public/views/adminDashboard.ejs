@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Admin Dashboard</title>
+  <title><%=user%> Admin Dashboard</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
@@ -15,9 +15,16 @@
 <body>
     <div class="rainbow"></div>
     <div>
-        <label class="pog">epic <%=user%></label>
+        <label class="title"><%=user%>'s Admin Dashboard</label>
     </div>
 
+    <div>
+      <% if (!balance == 0) { %>
+        <h2><%= balance %></h2>
+      <% } else {%>
+        <h2>Balance not entered</h2>
+      <% } %>
+    </div>
 
 
   <script src="../js/admindashboard.js"></script>

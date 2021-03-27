@@ -15,7 +15,11 @@ router.get("/dashboard/:username", (req, res) => {
     }
 
 
-    return res.render("../public/views/adminDashboard.ejs", { user: req.session.username })
+    return res.render("../public/views/adminDashboard.ejs", 
+    { 
+        user: req.session.username,
+        balance: 0
+    })
 })
 
 
