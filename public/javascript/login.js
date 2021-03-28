@@ -23,8 +23,12 @@ async function login(){
         console.log(text);
         if(text == "user logged in"){
             window.location.href = "/dashboard/user";
-        } else {
+        } else if(text == "logged in"){
             window.location.href = "/admin/dashboard/user";
+        }
+
+        if(text == "Username or password Incorrect"){
+            document.getElementById("errorLabel").innerHTML = text;
         }
     })
 }

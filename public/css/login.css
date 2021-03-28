@@ -69,7 +69,7 @@ button[id="signUp"]:hover {
     color: white;
 }
 
-.error{
+.errorLabel{
     text-align: middle;
     font-size: 20px;
 }
