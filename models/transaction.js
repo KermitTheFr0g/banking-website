@@ -1,5 +1,4 @@
 const db = require("../database");
-const account = require("./account");
 
 var transaction = {
     pay: async function(user, receiving){
@@ -16,7 +15,18 @@ var transaction = {
 
 
         return "PAYMENT HAS BEEN MADE";
+    },
+
+    getTransactions: async function(user){
+        const [result, schema] = await db.promise().query("SELECT * FROM transaction WHERE customer_id = ?", [user.customer_id]);
+
+        if(result.length > 0){
+            return result;
+        } else {
+            return "NO TRANSACTIONS FOUND";
+        }
     }
+
 }
 
 module.exports = transaction;

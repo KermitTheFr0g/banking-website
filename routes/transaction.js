@@ -19,7 +19,7 @@ router.post("/pay", async (req, res) => {
     return res.send("you have made a payment");
 })
 
-router.post("/get", async (req, res) => {
+router.get("/get", async (req, res) => {
     if(!req.session.username){
         return res.send("you need to be logged in");
     }
@@ -29,9 +29,9 @@ router.post("/get", async (req, res) => {
         customer_id: req.session.customer_id
     }
 
-    const transactions = await transactions.pay(loggedUser);
+    const tx = await transactions.getTransactions(loggedUser);
 
-    return res.send(transactions);
+    return res.send(tx);
 })
 
 module.exports = router;
