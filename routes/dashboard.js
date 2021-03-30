@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const account = require("../models/account");
+const user = require("../models/user");
 
 //if user is a customer this is the customer dashboard
 router.get("/:username", async (req, res) => {
@@ -13,7 +14,7 @@ router.get("/:username", async (req, res) => {
 
         var loggedUser = {
             username: req.session.username,
-            customer_id: req.session.customer_id
+            customer_id: req.session.customer_id,
         }
 
         const accounts = await account.checkAccounts(loggedUser);
@@ -29,7 +30,8 @@ router.get("/:username", async (req, res) => {
             account3_balance: accounts.balance3,
             account4_id: accounts.id4,
             account4_balance: accounts.balance4,
-            amountOfAccounts: accounts.amount
+            amountOfAccounts: accounts.amount,
+            userAdmin: await user.isAdmin(loggedUser)
         });
 
     } else {
@@ -44,7 +46,8 @@ router.get("/:username/transactions", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.render("../public/views/userDashboard.ejs", { user: req.session.username});
+        return res.send("yeah buddy");
+
     } else {
         return res.redirect("/dashboard/" + req.session.username + "/transactions");
     }
@@ -57,7 +60,7 @@ router.get("/:username/loans", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.render("../public/views/userDashboard.ejs", { user: req.session.username });
+        return res.send("yeah buddy");
 
     } else {
         return res.redirect("/dashboard/" + req.session.username + "/loans");

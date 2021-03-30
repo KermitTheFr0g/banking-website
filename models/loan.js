@@ -4,6 +4,13 @@ const validation = require("../validation/user");
 var loan = {
     createLoan: async function(user) {
         // check the user has an account
+
+        //ensures the user does not have 4 accounts already
+        const loans = await db.promise().query("SELECT * FROM loan WHERE customer_id = ?", [user.customer_id]);
+        if(loans[0].length > 6){
+            return "EXCEEDED MAXIMUM LOANS"
+        }
+
         const accounts = await db.promise().query("SELECT * FROM account WHERE customer_id = ? AND account_id = ?", 
         [
             user.customer_id,
@@ -83,6 +90,19 @@ var loan = {
                 user.amount,
                 user.customer_id
             ])
+
+            const completed = await db.promise().query("SELECT * FROM loan WHERE customer_id = ? AND loan_id = ?", 
+            [
+                user.customer_id,
+                user.loan_id
+            ]);
+            if(completed[0][0].loan_amount == 0 ){
+                const removeLoan = await db.promise().query("DELETE FROM loan WHERE customer_id = ? and loan_id = ?", 
+                [
+                    user.customer_id,
+                    user.loan_id
+                ]);
+            }
 
         // if the loan does not exist invalid loan id is returned to the user
         }else {

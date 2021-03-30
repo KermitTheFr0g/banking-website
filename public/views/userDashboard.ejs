@@ -13,6 +13,18 @@
 
 </head>
 <body>
+    <div class="topnav" id="myTopnav">
+        <a href="/dashboard/user" class="active">Accounts</a>
+        <a href="/dashboard/user/loans">Loans</a>
+        <a href="/dashboard/user/transactions">Transactions</a>
+        <div style="float: right;">
+            <% if (userAdmin) { %>
+                <a href="/admin/dashboard/user">Admin Dashboard</a>
+            <% } %>
+            <a href="/logout">Log Out</a>
+        </div>        
+    </div>
+
     <div class="title">
         <label><%=user%>'s Dashboard</label>
     </div>

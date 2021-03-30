@@ -2,6 +2,8 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #2C2F33;
     color: #FFFFFF;
+    margin: 0px;
+    padding: 0px;
 }
 
 .title {
@@ -10,6 +12,32 @@ body {
     justify-content: center;
     margin: 50px;
 }
+
+.topnav {
+    background-color: #23272A;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .topnav a.active {
+    background-color: #2C2F33;
+    color: white;
+  }
 
 .rainbow { 
     height: 10px;
