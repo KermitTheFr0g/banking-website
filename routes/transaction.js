@@ -6,7 +6,7 @@ const transactions = require("../models/transaction");
 
 router.post("/pay", async (req, res) => {
     if(!req.session.username){
-        return res.send("You need to be logged in")
+        return res.send("You need to be logged in");
     }
 
 
@@ -20,7 +20,7 @@ router.post("/pay", async (req, res) => {
         date: new Date()
     };
 
-    const payment = transaction.pay(loggedUser);
+    const payment = await transaction.pay(loggedUser);
     if(payment == "PAYMENT SUCCESSFUL"){
         return res.send(payment);
     }
