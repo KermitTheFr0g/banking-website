@@ -45,7 +45,7 @@ var transaction = {
         ])
 
          // create transaction log for recieving money on other account  
-        const receivingLog = await db.promise().query("INSERT INTO transaction(?, ?, 1, ?, ?, ?, ?)",
+        const receivingLog = await db.promise().query("INSERT INTO transaction (customer_id, account_id, incoming, tx_acfrom, tx_acto, tx_amount, dateOfTx) VALUES (?, ?, 0, ?, ?, ?, ?)",
         [
             user.customerReceiving, 
             user.receivingAct,
