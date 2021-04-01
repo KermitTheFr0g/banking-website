@@ -14,6 +14,7 @@ var transaction = {
             user.customer_id,
             user.sendingAct
         ]);
+        
         if(!account[0].length > 0 ){
             return "ACCOUNT DOESNT EXIST";
         }
@@ -23,10 +24,20 @@ var transaction = {
             return "INSUFFICIENT FUNDS";
         }
 
+
         // taking money from account
-        account[0][0].balance -= user.amount;
+        const updateAccount = await db.promise().query("UPDATE account SET balance = balance - ? WHERE account_id = ?", 
+        [
+            user.amount,
+            user.sendingAct
+        ])
 
         // adding money to receiving account
+        const updateReceivingAccount = await db.promise().query("UPDATE account SET balance = balance + ? WHERE account_id = ?",
+        [
+            user.amount,
+            user.receivingAct
+        ])
         receivingAccount[0][0].balance += user.amount;
 
 
