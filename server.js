@@ -57,3 +57,5 @@ app.listen(port, () => {
     console.log("on port " + port);
     //process.env.port);
 })
+
+// ip = 192.168.64.90
