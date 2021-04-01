@@ -2,9 +2,6 @@ const db = require("../database");
 
 var transaction = {
     pay: async function(user){
-
-        console.log(user);
-
         // check if the second account exists
         const receivingAccount = await db.promise().query("SELECT * FROM account WHERE account_id = ?", [user.receivingAct]);
         if(!receivingAccount[0].length > 0){
@@ -34,7 +31,7 @@ var transaction = {
 
 
         // create transaction log for sending the money from account
-        const sendingLog = await db.promise().query("INSERT INTO transaction VALUES (?, ?, 0, ?, ?, ?, ?)", 
+        const sendingLog = await db.promise().query("INSERT INTO transaction (customer_id, account_id, incoming, tx_acfrom, tx_acto, tx_amount, dateOfTx) VALUES (?, ?, 0, ?, ?, ?, ?)", 
         [
             user.customer_id, 
             user.sendingAct,
@@ -45,7 +42,7 @@ var transaction = {
         ])
 
          // create transaction log for recieving money on other account  
-        const receivingLog = await db.promise().query("INSERT INTO transaction VALUES(customer_id, account_id, incoming, tx_acfrom, tx_acto, tx_amount, dateOfTx) VALUES (?, ?, 0, ?, ?, ?, ?)",
+        const receivingLog = await db.promise().query("INSERT INTO transaction (customer_id, account_id, incoming, tx_acfrom, tx_acto, tx_amount, dateOfTx) VALUES (?, ?, 1, ?, ?, ?, ?)",
         [
             user.customerReceiving, 
             user.receivingAct,
