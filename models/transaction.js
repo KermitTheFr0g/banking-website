@@ -20,7 +20,7 @@ var transaction = {
         }
 
         // ensure the account has enough balance
-        if(!account[0][0].balance > user.amount){
+        if(user.amount > parseInt(account[0][0].balance)){
             return "INSUFFICIENT FUNDS";
         }
 
@@ -68,15 +68,26 @@ var transaction = {
     },
 
     getTransactions: async function(user){
-        const [result, schema] = await db.promise().query("SELECT * FROM transaction WHERE customer_id = ?", [user.customer_id]);
-
-        if(result.length > 0){
-            return result;
+        if(user.account == "ALL"){
+            const allAccounts = await db.promise().query("SELECT * FROM transaction WHERE customer_id = ?", [user.customer_id]);
+            if(allAccounts[0].length > 0){
+                return allAccounts[0];
+            } else {
+                return "NO ACCOUNT FOUND";
+            }
         } else {
-            return "NO TRANSACTIONS FOUND";
+            const singleAccount = await db.promise().query("SELECT * FROM transaction WHERE customer_id = ? AND account_id = ?",
+            [
+                user.customer_id,
+                user.account_id
+            ]);
+            if(singleAccount[0].length > 0){
+                return singleAccount[0][0]
+            } else {
+                return "NO ACCOUNT FOUND";
+            } 
         }
     }
-
 }
 
 module.exports = transaction;

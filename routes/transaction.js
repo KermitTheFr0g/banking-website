@@ -35,7 +35,8 @@ router.get("/get", async (req, res) => {
 
     var loggedUser = {
         username: req.session.username,
-        customer_id: req.session.customer_id
+        customer_id: req.session.customer_id,
+        account_id: req.body.account_id || "ALL"
     }
 
     const tx = await transactions.getTransactions(loggedUser);
