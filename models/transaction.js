@@ -24,6 +24,8 @@ var transaction = {
         }
 
         // taking money from account
+        console.log(account[0][0].balance)
+        console.log(user.amount);
         account[0][0].balance -= user.amount;
 
         // adding money to receiving account
