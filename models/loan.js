@@ -6,8 +6,8 @@ var loan = {
         // check the user has an account
 
         //ensures the user does not have 4 accounts already
-        const loans = await db.promise().query("SELECT * FROM loan WHERE customer_id = ?", [user.customer_id]);
-        if(loans[0].length > 6){
+        const loans = await db.promise().query("SELECT COUNT(loan_id) FROM loan WHERE customer_id = ?", [user.customer_id]);
+        if(loans[0][0]['COUNT(loan_id)'] > 6){
             return "EXCEEDED MAXIMUM LOANS"
         }
 
@@ -115,7 +115,7 @@ var loan = {
 
     getLoans: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM loan WHERE customer_id = ?", [user.customer_id]);
-        
+
         return result;
     }
 
