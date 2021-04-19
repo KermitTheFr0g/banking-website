@@ -10,8 +10,8 @@ var account = {
         }
 
         //ensures the user does not have 4 accounts already
-        const accounts = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id]);
-        if(accounts[0].length > 4){
+        const accounts = await db.promise().query("SELECT COUNT(customer_id) FROM account WHERE customer_id = ?", [user.customer_id]);
+        if(accounts[0][0]['COUNT(customer_id)'] > 4){
             return "EXCEEDED MAXIMUM ACCOUNTS"
         }
 
@@ -33,8 +33,8 @@ var account = {
 
     viewAccounts: async function(user){
         // making a db call for all the accounts that are tied to the users 
-        const [result, schema] = await db.promise().query("SELECT * FROM account WHERE customer_id = ?", [user.customer_id])
-        if(!result.length > 0){
+        const [result, schema] = await db.promise().query("SELECT COUNT(customer_id) FROM account WHERE customer_id = ?", [user.customer_id])
+        if(!result[0]['COUNT(customer_id)'] > 0){
             return "THIS USER HAS NO ACCOUNTS";
         }
 

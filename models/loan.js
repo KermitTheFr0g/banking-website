@@ -115,6 +115,7 @@ var loan = {
 
     getLoans: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM loan WHERE customer_id = ?", [user.customer_id]);
+        
         return result;
     }
 
