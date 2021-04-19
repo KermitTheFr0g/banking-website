@@ -1,4 +1,3 @@
-const urlencoded = require("body-parser/lib/types/urlencoded");
 const joi = require("joi");
 const { login } = require("../models/user");
 
@@ -13,7 +12,7 @@ const loginSchema = joi.object({
         .min(11)
         .max(30)
         .required()
-})  
+});  
 
 const signupSchema = joi.object({
     username: joi.string()

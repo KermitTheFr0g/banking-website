@@ -50,12 +50,12 @@ app.use("/api/transaction", transaction);
 app.get("/test", (req, res) => {
     console.log(req.session)
     return res.send("test done")
-})
+});
 
 app.listen(port, () => {
     console.log("server up and running");
     console.log("on port " + port);
     //process.env.port);
-})
+});
 
 // ip = 192.168.64.90

@@ -19,7 +19,7 @@ var transaction = {
             return "ACCOUNT DOESNT EXIST";
         }
 
-        // ensure the account has enough balance
+        // * ensure the account has enough balance
         if(user.amount > parseInt(account[0][0].balance)){
             return "INSUFFICIENT FUNDS";
         }

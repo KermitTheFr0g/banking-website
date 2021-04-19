@@ -60,7 +60,7 @@ router.get("/:username/loans", (req, res) => {
     }
 
     if(req.session.username === req.params.username){
-        return res.send("yeah buddy");
+        return res.send("yeah buddy " + req.query.q);
 
     } else {
         return res.redirect("/dashboard/" + req.session.username + "/loans");
