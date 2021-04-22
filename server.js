@@ -4,7 +4,6 @@ const app = express();
 const session = require("express-session"); 
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const path = require("path");
 
 const port = 3000 
 //|| process.env.port;
@@ -33,6 +32,7 @@ app.use("/public", express.static("public"))
 const routes = require("./routes/routes");
 const user = require("./routes/user");
 const dashboard = require("./routes/dashboard");
+const adminDashboard = require("./routes/adminDashboard");
 const admin = require("./routes/admin");
 const loan = require("./routes/loan");
 const account = require("./routes/account");
@@ -41,7 +41,8 @@ const transaction = require("./routes/transaction");
 
 app.use("/", routes);
 app.use("/dashboard", dashboard)
-app.use("/admin", admin);
+app.use("/admin", adminDashboard);
+app.use("/api/admin", admin)
 app.use("/api/user", user);
 app.use("/api/loan", loan)
 app.use("/api/account", account)

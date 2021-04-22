@@ -1,26 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-router.get("/dashboard/:username", (req, res) => {
-    if(!req.session.username){
-        return res.redirect("/login");
-    }
+const admin = require('../models/admin');
 
-    if(!req.session.admin){
-        return res.redirect("/dashboard/" + req.session.username);
-    }
+router.get('/all-loans', async (req, res) => {
+    let loans = await admin.getAllLoans();
 
-    if(req.params.username == req.session.username){
-        return res.render("../public/views/adminDashboard.ejs", 
-        { 
-            user: req.session.username,
-            balance: 0
-        })
-    } else {
-        return res.redirect("/admin/dashboard/" + req.session.username)
-    }
+    return res.send(loans);
 })
-
-
 
 module.exports = router;
