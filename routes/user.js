@@ -22,17 +22,22 @@ router.post("/login", async (req, res) => {
 
     const userLoggedIn = await user.login(userLogin);
     if(userLoggedIn){
+        // setting the user's session cookies
         req.session.username = userLogin.username;
         req.session.customer_id = await user.getCustomerId(userLogin);
 
         // checking if the user is an admin and then adding to cookies if they are
         const isAdmin = await user.isAdmin(userLogin);
         if(isAdmin){
+            // setting that the user is an admin
+            // this is what is checked to allow them onto specific pages
             req.session.admin = true;
+            // printed in console when an admin logs in
             console.log("Admin has logged in - " + userLogin.username)
             return res.send("logged in")
         }
         
+        // printed in console when a customer logs in
         console.log("User has logged in - " + userLogin.username)
         return res.send("user logged in");
     }

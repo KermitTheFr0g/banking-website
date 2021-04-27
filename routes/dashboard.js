@@ -10,6 +10,7 @@ router.get("/:username", async (req, res) => {
         return res.redirect("/login")
     }
 
+    // check if the url they entered has their username
     if(req.session.username === req.params.username){
 
         var loggedUser = {
