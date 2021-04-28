@@ -5,6 +5,7 @@ var User = {
     login: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
         if(result.length > 0){
+            // this checks the encrypted password against the password entered by the user
             return await bcrypt.compare(user.password, result[0].password);
         }
     },
@@ -59,6 +60,8 @@ var User = {
 
 
     hashPassword: function(password) {
+        // setting the salt
+        // this changes how the password is encrypted depending on the number
         let salt = bcrypt.genSaltSync(10);
         return bcrypt.hashSync(password, salt);
     },

@@ -6,19 +6,24 @@ const user = require("../models/user");
 
 
 router.post("/login", async (req, res) => {
+    // if the user already has session cookies they are already logged in
     if(req.session.username){
         return res.send("User already logged in");
     }
 
+    // this is the  data sent from the client
     var userLogin = {
         username: req.body.username,
         password: req.body.password
     }
 
+    // here i have created a function to validate the input
     const validate = validation.login(userLogin);
+    // if there is an error the data that is incorrect is sent back to the client
     if(validate){
         return res.send(validate);
     }
+
 
     const userLoggedIn = await user.login(userLogin);
     if(userLoggedIn){
@@ -74,6 +79,7 @@ router.post("/signup", async (req, res) => {
     const emailExists = await user.checkIfEmailExists(newUser);
     if(emailExists) return res.send("Email is already in use");
 
+    // hashing the password before it is inserted into the database 
     newUser.password = user.hashPassword(newUser.password);
 
     // creates the account 

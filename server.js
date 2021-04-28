@@ -11,7 +11,7 @@ const port = 3000
 //middleware
 //initialising sessions
 app.use(session({
-    secret: process.env.sessionSecret,
+    secret: "super secret bro",
     resave: true,
     saveUninitialized: true,
     cookie: {
