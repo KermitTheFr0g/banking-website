@@ -5,6 +5,7 @@ var admin = {
         // getting all loans 
         // getting info from two tables loan and customer
         const [result, schema] = await db.promise().query('SELECT loan_amount, first_name, last_name, date_created FROM loan, customer');
+        // gets a sum of all of the loans using sql query
         let totalLoanAmount = await db.promise().query('SELECT SUM(loan_amount) AS total FROM loan');
 
         totalLoanAmount = totalLoanAmount[0][0].total;
@@ -21,16 +22,7 @@ var admin = {
             totalLoanAmount: totalLoanAmount, 
             allLoans: result
         }
-    },
-
-    getLoansTrial: async function(){
-        const [result, schema] = await db.promise().query('SELECT SUM(loan_amount) FROM loan');
-
-        return {
-            totalLoanAmount: result
-        }
     }
-    
 }
 
 module.exports = admin;
