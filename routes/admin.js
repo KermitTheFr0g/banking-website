@@ -10,4 +10,11 @@ router.get('/all-loans', async (req, res) => {
     return res.send(loans);
 })
 
+router.get('/all-accounts', async (req, res) => {
+    //let loans = await admin.getLoans();
+    let balances = await admin.getBalances();
+
+    return res.send(balances);
+})
+
 module.exports = router;

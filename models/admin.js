@@ -11,15 +11,22 @@ var admin = {
 
         totalLoanAmount = totalLoanAmount[0][0].total;
 
-        // getting data from two different tables using an innser join
-        // getting all loans
-        var [result, schema] = await db.promise().query('SELECT loan_amount, first_name, last_name, date_created FROM loan INNER JOIN CUSTOMER ON loan.customer_id = customer.customer_id;')
-
-
-
         return {
             totalLoanAmount: totalLoanAmount, 
             allLoans: result
+        }
+    },
+
+    getBalances: async function(){
+        var [result, schema] = await db.promise().query('SELECT balance, first_name, last_name FROM ACCOUNT INNER JOIN customer ON ACCOUNT.customer_id = CUSTOMER.customer_id;');
+
+        let totalBalanceAmount = await db.promise().query('SELECT SUM(balance) AS total FROM account');
+
+        totalBalanceAmount = totalBalanceAmount[0][0].total;
+
+        return {
+            totalBalanceAmount: totalBalanceAmount,
+            allAccounts: result
         }
     }
 }
