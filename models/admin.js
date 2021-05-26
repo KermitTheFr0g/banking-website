@@ -2,6 +2,7 @@ const db = require('../database');
 
 var admin = {
     getLoans: async function(){
+        
         // getting all loans 
         const [result, schema] = await db.promise().query('SELECT * FROM loan');
         
