@@ -29,6 +29,8 @@ var transaction = {
         console.log(account[0][0].balance)
         console.log(user.amount);
         account[0][0].balance -= user.amount;
+        
+        // changing the balance in customer's account
         const updateAccount = await db.promise().query("UPDATE account SET balance = balance - ? WHERE account_id = ?", 
         [
             user.amount,
