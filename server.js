@@ -21,8 +21,7 @@ app.use(session({
 }))
 
 //initialising the body parser to be able to read post requests
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
 
 // this allows the client to be able to access the
 app.set("view engine", "ejs");

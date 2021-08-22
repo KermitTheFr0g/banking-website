@@ -17,6 +17,8 @@ router.post("/login", async (req, res) => {
         password: req.body.password
     }
 
+    console.log(userLogin)
+
     // here i have created a function to validate the input
     const validate = validation.login(userLogin);
     // if there is an error the data that is incorrect is sent back to the client
