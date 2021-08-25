@@ -4,6 +4,9 @@ const bcrypt = require("bcrypt");
 var User = {
     login: async function(user){
         const [result, schema] = await db.promise().query("SELECT * FROM customer WHERE username = ?", [user.username]);
+        
+        console.log(result)
+        
         if(result.length > 0){
             // this checks the encrypted password against the password entered by the user
             return await bcrypt.compare(user.password, result[0].password);
